@@ -16,6 +16,12 @@ public class LoginPage extends BaseClass {
     @FindBy(xpath="//*[@id=\"login-button\"]")
     WebElement loginButton;
 
+    @FindBy(xpath="//*[@id=\"login_button_container\"]/div/form/div[3]")
+    WebElement errorMessage;
+
+    @FindBy(xpath ="//div[contains(text(), 'Swag Labs')]")
+    WebElement swagLabsLogo;
+
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -30,5 +36,19 @@ public class LoginPage extends BaseClass {
 
     public boolean verifyLoginButton() {
         return loginButton.isDisplayed();
+    }
+
+    public void enterCredentials(String username, String password) {
+        this.username.sendKeys(username);
+        this.password.sendKeys(password);
+        this.loginButton.click();
+    }
+
+    public boolean verifySwagLabsLogo() {
+        return swagLabsLogo.isDisplayed();
+    }
+
+    public String getCurrentURL() {
+        return driver.getCurrentUrl();
     }
 }
