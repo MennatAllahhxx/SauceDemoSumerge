@@ -13,7 +13,7 @@ public class BaseClass {
     public static WebDriver driver;
 
     @BeforeMethod
-    public void initializeBrowser() throws IOException {
+    public void initializeBrowser() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
