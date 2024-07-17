@@ -51,4 +51,8 @@ public class LoginPage extends BaseClass {
     public String getCurrentURL() {
         return driver.getCurrentUrl();
     }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
+    }
 }

@@ -4,6 +4,8 @@ import library.BaseClass;
 import library.UtilityClass;
 
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -12,6 +14,7 @@ import java.io.IOException;
 
 public class LoginPageTest extends BaseClass {
     LoginPage loginPage;
+    int TCID;
 
     @BeforeMethod
     public void setup() {
@@ -46,5 +49,57 @@ public class LoginPageTest extends BaseClass {
 
         boolean swagLabsLogoExist = loginPage.verifySwagLabsLogo();
         Assert.assertTrue(swagLabsLogoExist);
+    }
+
+    @Test
+    public void loginWithInvalidCredentials() throws IOException {
+        loginPage.enterCredentials("menna", "mennapassword");
+
+        String actualURL = loginPage.getCurrentURL();
+        String expectedURL = UtilityClass.readPFData("URL");
+        Assert.assertEquals(actualURL, expectedURL);
+
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Epic sadface: Username and password do not match any user in this service";
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    }
+
+    @Test
+    public void loginWithBlankUsername() throws IOException {
+        loginPage.enterCredentials("", "menna");
+
+        String actualURL = loginPage.getCurrentURL();
+        String expectedURL = UtilityClass.readPFData("URL");
+        Assert.assertEquals(actualURL, expectedURL);
+
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Epic sadface: Username is required";
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    }
+
+    @Test
+    public void loginWithBlankPassword() throws IOException {
+        loginPage.enterCredentials("menna", "");
+
+        String actualURL = loginPage.getCurrentURL();
+        String expectedURL = UtilityClass.readPFData("URL");
+        Assert.assertEquals(actualURL, expectedURL);
+
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Epic sadface: Password is required";
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    }
+
+    @Test
+    public void loginWithBlankCredentials() throws IOException {
+        loginPage.enterCredentials("", "");
+
+        String actualURL = loginPage.getCurrentURL();
+        String expectedURL = UtilityClass.readPFData("URL");
+        Assert.assertEquals(actualURL, expectedURL);
+
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Epic sadface: Username is required";
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 }
