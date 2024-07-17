@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="E:/studies/software_testing/SauceDemoSumerge">
+        <classes>
+            <class name="tests.LoginPageTest">
+                <methods>
+                    <include name="verifyUsername"/>
+                    <include name="verifyPassword"/>
+                    <include name="verifyLoginButton"/>
+                    <include name="loginWithValidCredentials"/>
+                    <include name="loginWithInvalidCredentials"/>
+                    <include name="loginWithBlankUsername"/>
+                    <include name="loginWithBlankPassword"/>
+                    <include name="loginWithBlankCredentials"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
