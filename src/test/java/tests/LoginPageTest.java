@@ -14,32 +14,42 @@ import java.io.IOException;
 
 public class LoginPageTest extends BaseClass {
     LoginPage loginPage;
-    int TCID;
+    int testCaseID;
 
     @BeforeMethod
-    public void setup() {
+    public void setup(ITestResult result) {
         loginPage = new LoginPage(driver);
+        testCaseID = result.getMethod().getPriority();
     }
 
-    @Test
+    @AfterMethod
+    public void tearDown(ITestResult result) throws IOException {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            UtilityClass.captureSS(testCaseID);
+        }
+
+        driver.quit();
+    }
+
+    @Test(description="Verify the username text box existence", priority = 1)
     public void verifyUsername() {
         boolean usernameExist = loginPage.verifyUsername();
         Assert.assertTrue(usernameExist);
     }
 
-    @Test
+    @Test(description="Verify the password text box existence", priority = 2)
     public void verifyPassword() {
         boolean passwordExist = loginPage.verifyPassword();
         Assert.assertTrue(passwordExist);
     }
 
-    @Test
+    @Test(description="Verify the login button existence", priority = 3)
     public void verifyLoginButton() {
         boolean loginButtonExist = loginPage.verifyLoginButton();
         Assert.assertTrue(loginButtonExist);
     }
 
-    @Test
+    @Test(description="Verify the log in functionality with valid credentials", priority = 4)
     public void loginWithValidCredentials() throws IOException {
         loginPage.enterCredentials("standard_user", "secret_sauce");
 
@@ -51,7 +61,7 @@ public class LoginPageTest extends BaseClass {
         Assert.assertTrue(swagLabsLogoExist);
     }
 
-    @Test
+    @Test(description="Verify the log in functionality with invalid credentials", priority = 5)
     public void loginWithInvalidCredentials() throws IOException {
         loginPage.enterCredentials("menna", "mennapassword");
 
@@ -64,7 +74,7 @@ public class LoginPageTest extends BaseClass {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
-    @Test
+    @Test(description="Verify the log in functionality with blank username", priority = 6)
     public void loginWithBlankUsername() throws IOException {
         loginPage.enterCredentials("", "menna");
 
@@ -77,7 +87,7 @@ public class LoginPageTest extends BaseClass {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
-    @Test
+    @Test(description="Verify the log in functionality with blank password", priority = 7)
     public void loginWithBlankPassword() throws IOException {
         loginPage.enterCredentials("menna", "");
 
@@ -90,7 +100,7 @@ public class LoginPageTest extends BaseClass {
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
     }
 
-    @Test
+    @Test(description="Verify the log in functionality with empty credentials", priority = 8)
     public void loginWithBlankCredentials() throws IOException {
         loginPage.enterCredentials("", "");
 
