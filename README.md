@@ -59,6 +59,7 @@ SauceDemoSumerge/
 - **BaseClass**: WebDriver setup and teardown methods.
 - **UtilityClass**: Utility methods including data reading and screenshot capture.
 - **LoginPage**: Page Object Model (POM) for the login page.
+- **TestData**: Required URLs for the webpage.
 - **LoginPageTest**: TestNG tests for SauceDemo login functionality.
    - `verifyUsername`: Checks if the username input field is displayed.
    - `verifyPassword`: Checks if the password input field is displayed.
