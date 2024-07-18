@@ -103,13 +103,6 @@ SauceDemoSumerge/
 
 2. After running tests, view detailed test results in `test-output/emailable-report.html`.
 
-### Test Details
-
-- **LoginPageTest.java**: Contains TestNG tests for validating the login functionality.
-- **LoginPage.java**: Page Object Model (POM) for the SauceDemo login page.
-- **BaseClass.java**: Includes setup and teardown methods using Selenium WebDriver.
-- **UtilityClass.java**: Utility methods for common functionalities.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
